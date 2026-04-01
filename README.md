@@ -16,9 +16,11 @@ Pokémon explorer using [PokeAPI v2](https://pokeapi.co/).
 ```
 poke-api/
 ├── index.html    # HTML structure
-├── app.js        # JavaScript logic
-├── styles.css    # CSS styles
-└── README.md     # This file
+├── js/
+│   └── app.js   # JavaScript logic
+├── css/
+│   └── styles.css # CSS styles
+└── README.md    # This file
 ```
 
 ## Usage
