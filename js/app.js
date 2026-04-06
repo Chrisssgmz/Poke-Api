@@ -1,4 +1,6 @@
 // Constants
+const MAX_USERS = 100;
+const DEFAULT_TIMEOUT = 30;
 const CONFIG = {
     POKEMON_API_URL: "https://pokeapi.co/api/v2/pokemon/",
     // DEFAULT_LIMIT: 20
@@ -22,12 +24,18 @@ pokemonNameInput.addEventListener("keypress", (e) => {
     if (e.key === "Enter") getPokemon(pokemonNameInput.value);
 });
 
+// Functions
+
 // Fetch pokemon from API
 async function fetchPokemon(name) {
-    const res = await fetch(`${CONFIG.POKEMON_API_URL}${name}`);
-    if (!res.ok) throw new Error("Pokemon not found");
-    return res.json();
-};
+    try {
+        const res = await fetch(`${CONFIG.POKEMON_API_URL}${name}`);
+        if (!res.ok) throw new Error("Pokemon not found");
+        return res.json();
+    } catch (error) {
+        renderError(error);
+    }
+}
 
 // Render errors
 function renderError(error) {
@@ -44,14 +52,16 @@ function fixName(name) {
     return name
         .trim()
         .toLowerCase()
-        .replace(/\s/g, "-");
+        .replace(/[^a-z0-9-]/g, '');
 }
 
 // Display pokemon
-function displayPokemon(pokemon) {
+async function displayPokemon(pokemon) {
     const typeLabels = pokemon.types.map(t =>
         `<span class="type-badge type-${t.type.name}">${t.type.name}</span>`
     ).join('');
+
+    const abilitiesList = pokemon.abilities.map(a => a.ability.name).join(', ');
 
     pokemonContainer.innerHTML = `
         <div class="pokemon-card">
@@ -61,6 +71,7 @@ function displayPokemon(pokemon) {
             <div class="pokemon-info">
                 <p>Height: ${pokemon.height / 10}m</p>
                 <p>Weight: ${pokemon.weight / 10}kg</p>
+                <p>Habilities: ${abilitiesList}</p>
             </div>
         </div>
     `;

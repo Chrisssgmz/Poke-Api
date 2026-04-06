@@ -42,12 +42,12 @@ h1 {
 }
 
 #pokemon-name:focus {
-    border-color: #ff6b6b;
+    border-color: #3B55EB;
 }
 
 #search-btn {
     padding: 14px 28px;
-    background: #ff6b6b;
+    background: #3B55EB;
     color: white;
     border: none;
     border-radius: 8px;
@@ -57,7 +57,7 @@ h1 {
 }
 
 #search-btn:hover {
-    background: #ee5a5a;
+    background: #3B55EB;
 }
 
 #pokemon-display {
